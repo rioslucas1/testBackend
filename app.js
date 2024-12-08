@@ -12,13 +12,18 @@ function connectMongoose() {
     const mongoose = require('mongoose');
     mongoose.Promise = Promise;
     return mongoose.connect(
-    `mongodb://127.0.0.1:${process.env.MONGODB_PORT}/${process.env.MONGODB_DB}`
+        `mongodb://127.0.0.1:${process.env.MONGODB_PORT}/${process.env.MONGODB_DB}`
     );
 }
 
-
-
 function initialize() {
+    app.use((req, res, next) => {
+        if (req.path !== '/' && req.path.endsWith('/')) {
+            res.redirect(301, req.path.slice(0, -1));
+        } else {
+            next();
+        }
+    });
     app.use(expressWinston.logger({
         winstonInstance: logger,
         expressFormat: true,
@@ -28,20 +33,23 @@ function initialize() {
     }));
     app.use(cors());
     app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({extended: false}));
+    app.use(bodyParser.urlencoded({ extended: false }));
     app.use(cookieParser());
+
 
     Object.keys(routes).forEach((key) => {
         app.use('/api', routes[key]);
     });
 
-    app.use(function(req, res, next) {
+   
+    app.use(function (req, res, next) {
         let err = new Error('Not Found');
         err.status = 404;
         next(err);
     });
- 
-    app.use(function(err, req, res, next) {
+
+    
+    app.use(function (err, req, res, next) {
         if (res.headersSent) {
             return next(err);
         }

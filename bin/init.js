@@ -8,7 +8,7 @@ const logger = require('../lib/logger');
 console.log(env);
 return app.connectMongoose()
     .then(() => {
-        console.log("llegue hasta aca")
+        console.log("Server Ready")
         const application = app.initialize();
         application.listen(process.env.SERVER_PORT, () => {
             logger.info(`Your server is listening on port ${process.env.SERVER_PORT}`);
