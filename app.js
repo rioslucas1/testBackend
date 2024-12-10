@@ -12,7 +12,7 @@ function connectMongoose() {
     const mongoose = require('mongoose');
     mongoose.Promise = Promise;
     return mongoose.connect(
-        `mongodb://127.0.0.1:${process.env.MONGODB_PORT}/${process.env.MONGODB_DB}`
+         `mongodb://${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_DB}`
     );
 }
 
