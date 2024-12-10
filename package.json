@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/init.js",
+    "dev": "nodemon ./bin/init.js",
+    "prod": "node ./bin/init.js",
     "test-lint": "eslint ./lib",
     "test-mocha": "mocha --exit tests/**/*",
     "test-mocha-with-coverage": "nyc npm run test-mocha"
