@@ -1,6 +1,6 @@
 'use strict';
 const path = require('path');
-const env =   require('dotenv').config({ path: path.resolve(__dirname, '../dbConfig.env') });
+const env =   require('dotenv').config({ path: path.resolve(__dirname, '../.env.dist') });
 const app = require('../app');
 const logger = require('../lib/logger');
 
